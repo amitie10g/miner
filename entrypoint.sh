@@ -22,7 +22,7 @@ opts=$(getopt \
     -- "$@"
 )
 
-eval set --$opts
+eval set --"$opts"
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -47,7 +47,7 @@ while [[ $# -gt 0 ]]; do
             ;;
             
         --extra)
-            EXTRA$2
+            EXTRA"$2"
             shift 2
             ;;
 
@@ -72,7 +72,7 @@ while [[ $# -gt 0 ]]; do
             ;;
             
         --xmr-extra)
-            XMR_EXTRA$2
+            XMR_EXTRA"$2"
             shift 2
             ;;
 
@@ -84,7 +84,7 @@ done
 
 if [[ $(grep -c ^processor /proc/cpuinfo) -ge 8 ]]; then
     exec miner --nvml 0 --algo "$ALGO" --server "$SERV" --port "$PORT" --user "$USER" "$EXTRA" <&- & \
-    exec xmr-stak-rx --url "$XMR_SERV:XMR_PORT" --user "$XMR_USER" --pass x --currency "$XMR_CURR" "$XMR_EXTRA" <&-
+    exec xmr-stak-rx --url "$XMR_SERV:$XMR_PORT" --user "$XMR_USER" --pass x --currency "$XMR_CURR" "$XMR_EXTRA" <&-
 else
     exec miner --nvml 0 --algo "$ALGO" --server "$SERV" --port "$PORT" --user "$USER" "$EXTRA"
 fi
