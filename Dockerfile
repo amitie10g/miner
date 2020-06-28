@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.2-base
+FROM nvidia/cuda:10.2-cudnn7-runtime-ubuntu16.04
 
 WORKDIR /root
 
