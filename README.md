@@ -1,6 +1,6 @@
 # gminer and xmr-stak Docker image
 
-This repository allows to build a Docker image containing [gminer](https://github.com/develsoftware/GMinerRelease/releases) (CUDA/OpenCL) and [xmr-stak](https://github.com/fireice-uk/xmr-stak) (CPU), for personal use and for renting purposes.
+This repository allows to build a Docker image containing [gminer](https://github.com/develsoftware/GMinerRelease/releases) (CUDA/OpenCL) and [xmr-stak](https://github.com/fireice-uk/xmr-stak) (CPU), for personal use and for renting purposes. Executables are downloaded from upstream's release.
 
 ## Usage
 ```
