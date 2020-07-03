@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 FROM nvidia/cuda:10.2-base AS downloader
-=======
-FROM nvidia/cuda:10.2-cudnn7-runtime-ubuntu16.04
->>>>>>> f20655d9bb80013d196f5e5795e533120bb62364
 
 WORKDIR /tmp
 
