@@ -1,8 +1,30 @@
-FROM nvidia/cuda:10.2-base
+FROM nvidia/cuda:10.2-base AS downloader
 
-WORKDIR /root
+WORKDIR /tmp
 
-COPY / /
+RUN apt-get update && \
+    apt-get install --no-install-recommends --yes curl wget xz-utils
+
+RUN set -x && \
+    curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest \
+    | grep "browser_download_url.*linux64" \
+    | cut -d : -f 2,3 \
+    | tr -d \" \
+    | wget -O- -qi - \
+    | tar  xJf -
+
+RUN set -x && \
+    curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases \
+    | grep "browser_download_url.*xmr-stak-rx-linux" \
+    | cut -d : -f 2,3 \
+    | tr -d \" \
+    | wget -O- -qi - \
+    | tar  xJf -
+
+FROM nvidia/cuda:10.2-cudnn7-runtime-ubuntu16.04
+
+COPY --from=downloader /tmp/miner /tmp/xmr-stak-rx-linux-*/xmr-stak-rx /usr/local/bin/
+COPY entrypoint /root/entrypoint
 
 # Default environment (gminer)
 #ENV SERV=
@@ -17,5 +39,7 @@ COPY / /
 #ENV XMR_USER=
 #ENV XMR_CURR=
 #ENV XMR_EXTRA=
+
+WORKDIR /root
 
 ENTRYPOINT ["/root/entrypoint"]
