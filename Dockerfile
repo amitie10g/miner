@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.2-base AS downloader
+FROM nvidia/cuda:10.0-base AS downloader
 
 WORKDIR /tmp
 
@@ -21,7 +21,7 @@ RUN set -x && \
     | wget -O- -qi - \
     | tar  xJf -
 
-FROM nvidia/cuda:10.2-cudnn7-runtime-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-runtime-ubuntu16.04
 
 COPY --from=downloader /tmp/miner /tmp/xmr-stak-rx-linux-*/xmr-stak-rx /usr/local/bin/
 COPY entrypoint /root/entrypoint
