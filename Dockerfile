@@ -1,30 +1,35 @@
-FROM nvidia/cuda:10.0-base AS downloader
+FROM nvidia/cuda:11.2.1-base-ubuntu16.04 AS downloader
 
 WORKDIR /tmp
 
 RUN apt-get update && \
-    apt-get install --no-install-recommends --yes curl wget xz-utils
+	apt-get install --no-install-recommends --yes curl wget unzip xz-utils
 
 RUN set -x && \
-    curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest \
-    | grep "browser_download_url.*linux64" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | wget -O- -qi - \
-    | tar  xJf -
+	curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest | \
+	grep "browser_download_url.*linux64" | \
+	cut -d : -f 2,3 | \
+	tr -d \" | \
+    head -n 1 | \
+	wget -qi- -O gminer.zip && \
+	unzip gminer.zip
 
 RUN set -x && \
-    curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases \
-    | grep "browser_download_url.*xmr-stak-rx-linux" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | wget -O- -qi - \
-    | tar  xJf -
+    curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases | \
+	grep "browser_download_url.*xmr-stak-rx-linux.*cpu_cuda-nvidia.tar.xz" | \
+	cut -d : -f 2,3 | \
+	tr -d \" | \
+	head -n 1 | \
+	wget -O- -qi- | \
+	tar  xJf -
 
-FROM nvidia/cuda:10.0-cudnn7-runtime-ubuntu16.04
+FROM nvidia/cuda:11.2.1-cudnn8-runtime-ubuntu16.04
 
 COPY --from=downloader /tmp/miner /tmp/xmr-stak-rx-linux-*/xmr-stak-rx /usr/local/bin/
+COPY --from=downloader /tmp/xmr-stak-rx-linux-*/*.so usr/local/lib/
 COPY entrypoint /root/entrypoint
+
+RUN ln -s xmr-stak-rx /usr/local/bin/xmr-stak
 
 # Default environment (gminer)
 #ENV SERV=
@@ -42,4 +47,4 @@ COPY entrypoint /root/entrypoint
 
 WORKDIR /root
 
-ENTRYPOINT ["/root/entrypoint"]
+#ENTRYPOINT ["/root/entrypoint"]
