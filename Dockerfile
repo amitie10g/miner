@@ -7,12 +7,12 @@ RUN apt-get update && \
 
 RUN set -x && \
 	curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest | \
-	grep "browser_download_url.*linux64" | \
+	grep "browser_download_url.*linux64.tar.xz" | \
 	cut -d : -f 2,3 | \
 	tr -d \" | \
-    head -n 1 | \
-	wget -qi- -O gminer.zip && \
-	unzip gminer.zip
+	head -n 1 | \
+	wget -O- -qi- | \
+	tar  xJf -
 
 RUN set -x && \
     curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases | \
