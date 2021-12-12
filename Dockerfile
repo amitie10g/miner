@@ -1,27 +1,26 @@
 ARG UBUNTU_VERSION=20.04
 ARG CUDA_VERSION=11.4.2
-FROM ubuntu:latest AS downloader
+FROM nvidia/cuda:${CUDA_VERSION}-base-ubuntu${UBUNTU_VERSION} AS downloader
 
 WORKDIR /tmp
 
-RUN 	apt-get update && \
+RUN apt-get update && \
 	apt-get install --no-install-recommends --yes curl wget unzip xz-utils
 
 RUN	curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest | \
-		grep "browser_download_url.*linux64.tar.xz" | \
-		cut -d : -f 2,3 | \
-		tr -d \" | \
-		head -n 1 | \
-		wget -O- -qi- | \
-		tar  xJf -
-
-RUN	curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases | \
-		grep "browser_download_url.*xmr-stak-rx-linux.*cpu_cuda-nvidia.tar.xz" | \
-		cut -d : -f 2,3 | \
-		tr -d \" | \
-		head -n 1 | \
-		wget -O- -qi- | \
-		tar  xJf -
+	grep "browser_download_url.*linux64.tar.xz" | \
+	cut -d : -f 2,3 | \
+	tr -d \" | \
+	head -n 1 | \
+	wget -O- -qi- | \
+	tar  xJf - && \
+	curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases | \
+	grep "browser_download_url.*xmr-stak-rx-linux.*cpu_cuda-nvidia.tar.xz" | \
+	cut -d : -f 2,3 | \
+	tr -d \" | \
+	head -n 1 | \
+	wget -O- -qi- | \
+	tar  xJf -
 
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn8-runtime-ubuntu${UBUNTU_VERSION}
 
