@@ -1,6 +1,6 @@
 ARG UBUNTU_VERSION=20.04
 ARG CUDA_VERSION=11.4.2
-FROM nvidia/cuda:${CUDA_VERSION}-base-ubuntu${UBUNTU_VERSION} AS downloader
+FROM ubuntu:latest AS downloader
 
 WORKDIR /tmp
 
