@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.2.1-base-ubuntu16.04 AS downloader
+FROM nvidia/cuda:11.4.2-base-ubuntu16.04 AS downloader
 
 WORKDIR /tmp
 
@@ -23,7 +23,7 @@ RUN set -x && \
 	wget -O- -qi- | \
 	tar  xJf -
 
-FROM nvidia/cuda:11.2.1-cudnn8-runtime-ubuntu16.04
+FROM nvidia/cuda:11.4.2-cudnn8-runtime-ubuntu16.04
 
 COPY --from=downloader /tmp/miner /tmp/xmr-stak-rx-linux-*/xmr-stak-rx /usr/local/bin/
 COPY --from=downloader /tmp/xmr-stak-rx-linux-*/*.so usr/local/lib/
