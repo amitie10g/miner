@@ -5,15 +5,17 @@ FROM ubuntu:latest AS downloader
 WORKDIR /tmp
 
 RUN 	apt-get update && \
-	apt-get install --no-install-recommends --yes curl wget unzip xz-utils && \
-	curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest | \
+	apt-get install --no-install-recommends --yes curl wget unzip xz-utils
+
+RUN	curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest | \
 		grep "browser_download_url.*linux64.tar.xz" | \
 		cut -d : -f 2,3 | \
 		tr -d \" | \
 		head -n 1 | \
 		wget -O- -qi- | \
-		tar  xJf - && \
-	curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases | \
+		tar  xJf -
+
+RUN	curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases | \
 		grep "browser_download_url.*xmr-stak-rx-linux.*cpu_cuda-nvidia.tar.xz" | \
 		cut -d : -f 2,3 | \
 		tr -d \" | \
