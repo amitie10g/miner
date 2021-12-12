@@ -5,7 +5,7 @@ FROM ubuntu:latest AS downloader
 WORKDIR /tmp
 
 RUN 	apt-get update && \
-	apt-get install --no-install-recommends --yes curl wget unzip xz-utils
+	apt-get install --no-install-recommends --yes curl wget unzip xz-utils && \
 	curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest | \
 		grep "browser_download_url.*linux64.tar.xz" | \
 		cut -d : -f 2,3 | \
