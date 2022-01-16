@@ -1,5 +1,5 @@
 ARG UBUNTU_VERSION=20.04
-ARG CUDA_VERSION=11.4.3-cudnn8
+ARG CUDA_VERSION=11.5.1-cudnn8
 FROM nvidia/cuda:${CUDA_VERSION}-base-ubuntu${UBUNTU_VERSION} AS downloader
 
 WORKDIR /tmp
