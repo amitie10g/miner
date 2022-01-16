@@ -1,6 +1,6 @@
 ARG UBUNTU_VERSION=20.04
-ARG CUDA_VERSION=11.4.2
-FROM ubuntu:$UBUNTU_VERSION AS downloader
+ARG CUDA_VERSION=11.6.0
+FROM nvidia/cuda:${CUDA_VERSION}-base-ubuntu${UBUNTU_VERSION} AS downloader
 
 WORKDIR /tmp
 
@@ -23,7 +23,7 @@ RUN curl -Ls https://api.github.com/repos/fireice-uk/xmr-stak/releases | \
 		wget -O- -qi- | \
 		tar  xJf -
 
-FROM nvidia/cuda:$CUDA_VERSION-cudnn8-runtime-ubuntu$UBUNTU_VERSION
+FROM nvidia/cuda:${CUDA_VERSION}-cudnn8-runtime-ubuntu${UBUNTU_VERSION}
 
 COPY --from=downloader /tmp/miner /tmp/xmr-stak-rx-linux-*/xmr-stak-rx /usr/local/bin/
 COPY --from=downloader /tmp/xmr-stak-rx-linux-*/*.so /usr/local/lib/
