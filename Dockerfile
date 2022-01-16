@@ -1,6 +1,6 @@
 ARG UBUNTU_VERSION=20.04
 ARG CUDA_VERSION=11.4.2
-FROM ubuntu:latest AS downloader
+FROM ubuntu:$UBUNTU_VERSION AS downloader
 
 WORKDIR /tmp
 
@@ -8,26 +8,26 @@ RUN	apt-get update && \
 	apt-get install --no-install-recommends --yes curl wget unzip xz-utils
 
 RUN 	curl -Ls https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest | \
-	grep "browser_download_url.*linux64.tar.xz" | \
-	cut -d : -f 2,3 | \
-	tr -d \" | \
-	head -n 1 | \
-	wget -O- -qi- | \
-	tar  xJf -
+		grep "browser_download_url.*linux64.tar.xz" | \
+		cut -d : -f 2,3 | \
+		tr -d \" | \
+		head -n 1 | \
+		wget -O- -qi- | \
+		tar  xJf -
 
-RUN     curl -Ls https://api.github.com/repos/fireice-uk/xmr-stak/releases | \
-	grep "browser_download_url.*xmr-stak-rx-linux.*cpu_cuda-nvidia.tar.xz" | \
-	cut -d : -f 2,3 | \
-	tr -d \" | \
-	head -n 1 | \
-	wget -O- -qi- | \
-	tar  xJf -
+RUN curl -Ls https://api.github.com/repos/fireice-uk/xmr-stak/releases | \
+		grep "browser_download_url.*xmr-stak-rx-linux.*cpu_cuda-nvidia.tar.xz" | \
+		cut -d : -f 2,3 | \
+		tr -d \" | \
+		head -n 1 | \
+		wget -O- -qi- | \
+		tar  xJf -
 
-FROM nvidia/cuda:11.2.1-cudnn8-runtime-ubuntu16.04
+FROM nvidia/cuda:$CUDA_VERSION-cudnn8-runtime-ubuntu$UBUNTU_VERSION
 
 COPY --from=downloader /tmp/miner /tmp/xmr-stak-rx-linux-*/xmr-stak-rx /usr/local/bin/
-COPY --from=downloader /tmp/xmr-stak-rx-linux-*/*.so usr/local/lib/
-COPY entrypoint /root/entrypoint
+COPY --from=downloader /tmp/xmr-stak-rx-linux-*/*.so /usr/local/lib/
+COPY entrypoint /usr/local/bin/entrypoint
 
 RUN ln -s xmr-stak-rx /usr/local/bin/xmr-stak
 
@@ -47,4 +47,4 @@ RUN ln -s xmr-stak-rx /usr/local/bin/xmr-stak
 
 WORKDIR /root
 
-#ENTRYPOINT ["/root/entrypoint"]
+#ENTRYPOINT ["entrypoint"]
