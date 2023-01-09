@@ -1,7 +1,7 @@
 all: eleven ten nine
 
 eleven:
-	docker build -t amitie10g/miner:latest -t amitie10g/miner:11.8.0-cudnn8:latest -t amitie10g/miner:11.8.0-cudnn8-ubuntu22.04 .
+	docker build -t amitie10g/miner:latest -t amitie10g/miner:11.8.0-cudnn8 -t amitie10g/miner:11.8.0-cudnn8-ubuntu22.04 .
 	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.8.0-cudnn8-ubuntu20.04 .
 	docker build --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.8.0-cudnn8-ubuntu18.04 .
 
