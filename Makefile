@@ -5,37 +5,37 @@ eleven:
 	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.8.0-cudnn8-ubuntu20.04 .
 	docker build --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.8.0-cudnn8-ubuntu18.04 .
 
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.7.1-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.7.1-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.7.1-cudnn8-ubuntu18.04 .
+	docker build --build-arg CUDA_VERSION=11.7.1-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.7.1-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.7.1-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.7.1-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.7.1-cudnn8 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.7.1-cudnn8-ubuntu18.04 .
 
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.6.2-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.6.2-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.6.2-cudnn8-ubuntu18.04 .
+	docker build --build-arg CUDA_VERSION=11.6.2-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.6.2-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.6.2-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.6.2-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.6.2-cudnn8 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.6.2-cudnn8-ubuntu18.04 .
 
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.5.2-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.5.2-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.5.2-cudnn8-ubuntu18.04 .
+	docker build --build-arg CUDA_VERSION=11.5.2-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.5.2-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.5.2-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.5.2-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.5.2-cudnn8 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.5.2-cudnn8-ubuntu18.04 .
 
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.4.3-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.4.3-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.4.3-cudnn8-ubuntu18.04 .
+	docker build --build-arg CUDA_VERSION=11.4.3-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.4.3-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.4.3-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.4.3-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.4.3-cudnn8 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.4.3-cudnn8-ubuntu18.04 .
 
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.3.1-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.3.1-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.3.1-cudnn8-ubuntu18.04 .
+	docker build --build-arg CUDA_VERSION=11.3.1-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.3.1-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.3.1-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.3.1-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.3.1-cudnn8 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.3.1-cudnn8-ubuntu18.04 .
 
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.2.2-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.2.2-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.2.2-cudnn8-ubuntu18.04 .
+	docker build --build-arg CUDA_VERSION=11.2.2-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.2.2-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.2.2-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.2.2-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.2.2-cudnn8 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.2.2-cudnn8-ubuntu18.04 .
 
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.1.1-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.1.1-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.1.1-cudnn8-ubuntu18.04 .
+	docker build --build-arg CUDA_VERSION=11.1.1-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.1.1-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.1.1-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.1.1-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.1.1-cudnn8 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.1.1-cudnn8-ubuntu18.04 .
 
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.0.3-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.0.3-cudnn8-ubuntu20.04 .
-	docker build --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.0.3-cudnn8-ubuntu18.04 .
+	docker build --build-arg CUDA_VERSION=11.0.3-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.0.3-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.0.3-cudnn8 --build-arg UBUNTU_VERSION=20.04 -t amitie10g/miner:11.0.3-cudnn8-ubuntu20.04 .
+	docker build --build-arg CUDA_VERSION=11.0.3-cudnn8 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:11.0.3-cudnn8-ubuntu18.04 .
 
 ten:
 	docker build --build-arg CUDA_VERSION=10.2-cudnn8 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:10.2-cudnn8-ubuntu18.04 .
