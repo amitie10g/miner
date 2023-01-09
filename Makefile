@@ -56,11 +56,9 @@ ten:
 nine:
 	docker build --build-arg CUDA_VERSION=9.2-cudnn7 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:9.2-cudnn7-ubuntu18.04 .
 	docker build --build-arg CUDA_VERSION=9.2-cudnn7 --build-arg UBUNTU_VERSION=16.04 -t amitie10g/miner:9.2-cudnn7-ubuntu16.04 .
-	
-	docker build --build-arg CUDA_VERSION=9.1-cudnn7 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:9.1-cudnn7-ubuntu18.04 .
+
 	docker build --build-arg CUDA_VERSION=9.1-cudnn7 --build-arg UBUNTU_VERSION=16.04 -t amitie10g/miner:9.1-cudnn7-ubuntu16.04 .
-	
-	docker build --build-arg CUDA_VERSION=9.0-cudnn7 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:9.0-cudnn7-ubuntu18.04 .
+
 	docker build --build-arg CUDA_VERSION=9.0-cudnn7 --build-arg UBUNTU_VERSION=16.04 -t amitie10g/miner:9.0-cudnn7-ubuntu16.04 .	
 
 push:
