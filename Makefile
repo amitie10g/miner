@@ -1,4 +1,4 @@
-all: eleven ten nine
+all: eleven ten nine push
 
 eleven:
 	docker build -t amitie10g/miner:latest -t amitie10g/miner:11.8.0-cudnn8 -t amitie10g/miner:11.8.0-cudnn8-ubuntu22.04 .
@@ -14,3 +14,6 @@ ten:
 nine:
 	docker build --build-arg CUDA_VERSION=9.2-cudnn7 --build-arg UBUNTU_VERSION=18.04 -t amitie10g/miner:9.2-cudnn7-ubuntu18.04 .
 	docker build --build-arg CUDA_VERSION=9.2-cudnn7 --build-arg UBUNTU_VERSION=16.04 -t amitie10g/miner:9.2-cudnn7-ubuntu16.04 .
+
+push:
+	docker push --all-tags amitie10g/miner
