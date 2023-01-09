@@ -65,3 +65,6 @@ nine:
 
 push:
 	docker push --all-tags amitie10g/miner
+
+clean:
+	docker system prune
