@@ -11,7 +11,7 @@ RUN curl -Ls https://api.github.com/repos/develsoftware/GMinerRelease/releases/l
 RUN curl -Ls https://api.github.com/repos/fireice-uk/xmr-stak/releases | grep "browser_download_url.*xmr-stak-rx-linux.*cpu_cuda-nvidia.tar.xz" | cut -d : -f 2,3 | tr -d \" | head -n 1 | wget -O- -qi- | tar  xJf -
 
 FROM nvidia/cuda:${CUDA_VERSION}-runtime-ubuntu${UBUNTU_VERSION}
-RUN ln -s xmr-stak-rx /usr/local/bin/xmr-stak
+
 RUN apt-get update && \
 	apt-get install --no-install-recommends --yes supervisor && \
 	apt-get clean && \
