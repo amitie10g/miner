@@ -11,10 +11,18 @@ RUN curl -Ls https://api.github.com/repos/develsoftware/GMinerRelease/releases/l
 RUN curl -Ls https://api.github.com/repos/fireice-uk/xmr-stak/releases | grep "browser_download_url.*xmr-stak-rx-linux.*cpu_cuda-nvidia.tar.xz" | cut -d : -f 2,3 | tr -d \" | head -n 1 | wget -O- -qi- | tar  xJf -
 
 FROM nvidia/cuda:${CUDA_VERSION}-runtime-ubuntu${UBUNTU_VERSION}
+RUN ln -s xmr-stak-rx /usr/local/bin/xmr-stak
+RUN apt-get update && \
+	apt-get install --no-install-recommends --yes supervisor && \
+	apt-get clean && \
+	apt-get autoclean && \
+	apt-get -y autoremove && \
+	rm -rf /var/lib/apt/lists/*
 
 COPY --from=downloader /tmp/miner /tmp/xmr-stak-rx-linux-*/xmr-stak-rx /usr/local/bin/
 COPY --from=downloader /tmp/xmr-stak-rx-linux-*/*.so /usr/local/lib/
-COPY entrypoint /usr/local/bin/entrypoint
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY gminer.conf xmr-stak-rx.conf /etc/supervisor/conf.d/
 
 RUN ln -s xmr-stak-rx /usr/local/bin/xmr-stak
 
@@ -34,4 +42,4 @@ RUN ln -s xmr-stak-rx /usr/local/bin/xmr-stak
 
 WORKDIR /root
 
-#ENTRYPOINT ["entrypoint"]
+ENTRYPOINT ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/supervisord.conf"]
