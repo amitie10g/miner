@@ -5,7 +5,7 @@ FROM ubuntu:${UBUNTU_VERSION} AS downloader
 WORKDIR /tmp
 
 RUN apt-get update && \
-    apt-get install --no-install-recommends --yes curl wget ca-certificates unzip xz-utils
+    apt-get install --no-install-recommends --yes curl wget ca-certificates unzip xz-utils jq
 
 RUN set -x && curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest | \
     jq -r '.assets[] | select(.name | test("gminer_.*_linux64.tar.xz")) | .browser_download_url' | \
