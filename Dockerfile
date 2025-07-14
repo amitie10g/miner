@@ -7,13 +7,13 @@ WORKDIR /tmp
 RUN apt-get update && \
     apt-get install --no-install-recommends --yes curl wget ca-certificates unzip xz-utils
 
-RUN curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest | \
+RUN set -x && curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest | \
     jq -r '.assets[] | select(.name | test("gminer_.*_linux64.tar.xz")) | .browser_download_url' | \
     head -n 1 | \
     wget -O- -qi- | \
     tar  xJf -
 
-RUN curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases/latest | \
+RUN set -x && curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases/latest | \
     jq -r '.assets[] | select(.name | test("xmr-stak-rx-linux.*cpu.tar.xz")) | .browser_download_url' | \
     head -n 1 | \
     wget -O- -qi- | \
