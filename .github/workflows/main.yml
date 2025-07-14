@@ -64,7 +64,7 @@ jobs:
       id: meta
       with:
         images: |
-          ${{ secrets.DOCKERHUB_USERNAME }}/miner
+          ghcr.io/${{ github.repository_owner }}/miner
         tags: |
           ${{ inputs.cuda_version }}-${{ inputs.ubuntu_version }}
           ${{ inputs.latest_release == 'true' && 'latest' || '' }}
