@@ -1,6 +1,5 @@
-ARG UBUNTU_VERSION=24.04
 ARG CUDA_VERSION=12.8.1
-FROM ubuntu:${UBUNTU_VERSION} AS downloader
+FROM ubuntu:22.04 AS downloader
 
 WORKDIR /tmp
 
@@ -19,7 +18,7 @@ RUN curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases/latest | \
     wget -O- -qi- | \
     tar  xJf -
 
-FROM nvidia/cuda:${CUDA_VERSION}-cudnn-runtime-ubuntu${UBUNTU_VERSION}
+FROM nvidia/cuda:${CUDA_VERSION}-cudnn-runtime-ubuntu22.04
 
 RUN apt-get update && \
     apt-get install --no-install-recommends --yes supervisor && \
