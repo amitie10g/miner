@@ -2,31 +2,6 @@ name: Docker Image CI
 
 on:
   workflow_dispatch:
-    inputs:
-      ubuntu_version:
-        description: 'Ubuntu version'
-        required: true
-        default: '24.04'
-        type: choice
-        options:
-          - '24.04'
-          - '22.04'
-      cuda_version:
-        description: 'CUDA version'
-        required: true
-        default: '12.9.1'
-        type: choice
-        options:
-          - '12.9.1'
-          - '11.8.0'
-      latest_release:
-        description: 'Set this buuild as latest release'
-        required: true
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
 
   schedule:
   - cron: '0 4 * * 1'
@@ -39,6 +14,45 @@ permissions:
 jobs:
   Build:
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        UBUNTU_VERSION:
+        - 24.04
+        - 22.04
+        include:
+        - CUDA_VERSION_MAJOR: 12.9
+          CUDA_VERSION_MINOR: 12.9.1
+        - CUDA_VERSION_MAJOR: 12.8
+          CUDA_VERSION_MINOR: 12.8.1
+        - CUDA_VERSION_MAJOR: 12.6
+          CUDA_VERSION_MINOR: 12.6.3
+        - CUDA_VERSION_MAJOR: 12.5
+          CUDA_VERSION_MINOR: 12.5.1
+        - CUDA_VERSION_MAJOR: 12.4
+          CUDA_VERSION_MINOR: 12.4.1
+        - CUDA_VERSION_MAJOR: 12.3
+          CUDA_VERSION_MINOR: 12.3.2
+        - CUDA_VERSION_MAJOR: 12.2
+          CUDA_VERSION_MINOR: 12.2.2
+        - CUDA_VERSION_MAJOR: 12.1
+          CUDA_VERSION_MINOR: 12.1.1
+        - CUDA_VERSION_MAJOR: 12.0
+          CUDA_VERSION_MINOR: 12.0.1
+        - CUDA_VERSION_MAJOR: 11.8
+          CUDA_VERSION_MINOR: 11.8.0
+        - CUDA_VERSION_MAJOR: 11.7
+          CUDA_VERSION_MINOR: 11.7.1
+        - CUDA_VERSION_MAJOR: 11.6
+          CUDA_VERSION_MINOR: 11.6.2
+        - CUDA_VERSION_MAJOR: 11.5
+          CUDA_VERSION_MINOR: 11.5.2
+        - CUDA_VERSION_MAJOR: 11.3
+          CUDA_VERSION_MINOR: 11.3.1
+        - CUDA_VERSION_MAJOR: 11.1
+          CUDA_VERSION_MINOR: 11.1.1
+        - CUDA_VERSION_MAJOR: 11.0
+          CUDA_VERSION_MINOR: 11.0.3
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -66,8 +80,9 @@ jobs:
         images: |
           ghcr.io/${{ github.repository_owner }}/miner
         tags: |
-          ${{ inputs.cuda_version }}-${{ inputs.ubuntu_version }}
-          ${{ inputs.latest_release == 'true' && 'latest' || '' }}
+          ${{ matrix.CUDA_VERSION_MAJOR }}-${{ matrix.UBUNTU_VERSION }}
+          ${{ matrix.CUDA_VERSION_MINOR }}-${{ matrix.UBUNTU_VERSION }}
+          ${{ strategy.job-index == 0 && 'latest' || '' }}
     - name: Build And Push Docker Image
       uses: docker/build-push-action@v5
       id: build
@@ -75,8 +90,8 @@ jobs:
         push: true
         context: .
         build-args: |
-          UBUNTU_VERSION=${{ inputs.ubuntu_version }}
-          CUDA_VERSION=${{ inputs.cuda_version }}
+          UBUNTU_VERSION=${{ matrix.UBUNTU_VERSION }}
+          CUDA_VERSION=${{ matrix.CUDA_VERSION_MINOR }}
         cache-to: type=inline
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
