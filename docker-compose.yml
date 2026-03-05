@@ -1,4 +1,4 @@
 services:
   miner:
-    image: amitie10g/miner:11.4.3-cudnn8-ubuntu18.04
+    image: amitie10g/miner:12.9.1
     env_file: env.list
