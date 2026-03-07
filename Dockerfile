@@ -12,11 +12,11 @@ RUN curl -s https://api.github.com/repos/rigelminer/rigel/releases/latest | \
     wget -O- -qi- | \
     tar  xzf -
 
-RUN curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases/latest | \
-    jq -r '.assets[] | select(.name | test("xmr-stak-rx-linux.*cpu.tar.xz")) | .browser_download_url' | \
+RUN curl -s https://api.github.com/repos/xmrig/xmrig/releases/latest | \
+    jq -r '.assets[] | select(.name | test("xmrig-.*-linux-static-x64.tar.gz")) | .browser_download_url' | \
     head -n 1 | \
     wget -O- -qi- | \
-    tar  xJf -
+    tar  xzf -
 
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn-runtime-ubuntu22.04
 
@@ -27,8 +27,7 @@ RUN apt-get update && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=downloader /tmp/rigel-*-linux/rigel /tmp/xmr-stak-rx-linux-*/xmr-stak-rx /usr/local/bin/
-COPY --from=downloader /tmp/xmr-stak-rx-linux-*/*.so /usr/local/lib/
+COPY --from=downloader /tmp/rigel-*-linux/rigel /tmp/xmrig-*/xmrig /usr/local/bin/
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY rigel.conf xmr-stak-rx.conf /etc/supervisor/conf.d/
 
