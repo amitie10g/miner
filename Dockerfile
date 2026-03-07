@@ -6,11 +6,11 @@ WORKDIR /tmp
 RUN apt-get update && \
     apt-get install --no-install-recommends --yes curl wget ca-certificates unzip xz-utils jq
 
-RUN curl -s https://api.github.com/repos/develsoftware/GMinerRelease/releases/latest | \
-    jq -r '.assets[] | select(.name | test("gminer_.*_linux64.tar.xz")) | .browser_download_url' | \
+RUN curl -s https://api.github.com/repos/rigelminer/rigel/releases/latest | \
+    jq -r '.assets[] | select(.name | test("rigel-.*-linux.tar.gz")) | .browser_download_url' | \
     head -n 1 | \
     wget -O- -qi- | \
-    tar  xJf -
+    tar  xzf -
 
 RUN curl -s https://api.github.com/repos/fireice-uk/xmr-stak/releases/latest | \
     jq -r '.assets[] | select(.name | test("xmr-stak-rx-linux.*cpu.tar.xz")) | .browser_download_url' | \
@@ -27,14 +27,14 @@ RUN apt-get update && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=downloader /tmp/miner /tmp/xmr-stak-rx-linux-*/xmr-stak-rx /usr/local/bin/
+COPY --from=downloader /tmp/rigel-*-linux/rigel /tmp/xmr-stak-rx-linux-*/xmr-stak-rx /usr/local/bin/
 COPY --from=downloader /tmp/xmr-stak-rx-linux-*/*.so /usr/local/lib/
 COPY supervisord.conf /etc/supervisor/supervisord.conf
-COPY gminer.conf xmr-stak-rx.conf /etc/supervisor/conf.d/
+COPY rigel.conf xmr-stak-rx.conf /etc/supervisor/conf.d/
 
 RUN ln -s xmr-stak-rx /usr/local/bin/xmr-stak
 
-# Default environment (gminer)
+# Default environment (rigel)
 #ENV SERV=
 #ENV PORT=
 #ENV USER=
