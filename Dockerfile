@@ -29,7 +29,7 @@ RUN apt-get update && \
 
 COPY --from=downloader /tmp/rigel-*-linux/rigel /tmp/xmrig-*/xmrig /usr/local/bin/
 COPY supervisord.conf /etc/supervisor/supervisord.conf
-COPY rigel.conf xmr-stak-rx.conf /etc/supervisor/conf.d/
+COPY rigel.conf xmrig.conf /etc/supervisor/conf.d/
 
 RUN ln -s xmr-stak-rx /usr/local/bin/xmr-stak
 
